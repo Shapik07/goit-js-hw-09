@@ -1,7 +1,14 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
-const startBtn = document.querySelector('[data-start]');
+const refs = {
+  startBtn: document.querySelector('[data-start]'),
+  input: document.querySelector('input'),
+  days: document.querySelector('[data-days]'),
+  hours: document.querySelector('[data-hours]'),
+  minutes: document.querySelector('[data-minutes]'),
+  seconds: document.querySelector('[data-seconds]'),
+};
 
 const options = {
   enableTime: true,
@@ -14,3 +21,9 @@ const options = {
 };
 
 flatpickr('#datetime-picker', options);
+
+refs.startBtn.addEventListener('click', startTimer);
+
+function startTimer() {
+
+};
