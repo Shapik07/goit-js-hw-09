@@ -12,7 +12,6 @@ const refs = {
 };
 
 let selectedDate = null;
-let time = null
 
 const options = {
   enableTime: true,
@@ -46,17 +45,13 @@ function startTimer() {
     let currentTime = Date.now();
     let time = selectedDate - currentTime;
     const finishTime = convertMs(time);
-    console.log(finishTime);
+
+    refs.days.textContent = finishTime.days;
+    refs.hours.textContent = finishTime.hours;
+    refs.minutes.textContent = finishTime.minutes;
+    refs.seconds.textContent = finishTime.seconds;
   }, 1000);
 }
-
-
-
-
-
-
-
-
 
 function addLeadingZero(value) {
   return value.toString().padStart(2, '0');
@@ -68,10 +63,12 @@ function convertMs(ms) {
   const hour = minute * 60;
   const day = hour * 24;
 
-  const days = Math.floor(ms / day);
-  const hours = Math.floor((ms % day) / hour);
-  const minutes = Math.floor(((ms % day) % hour) / minute);
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+  const days = addLeadingZero(Math.floor(ms / day));
+  const hours = addLeadingZero(Math.floor((ms % day) / hour));
+  const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
+  const seconds = addLeadingZero(Math.floor(
+    (((ms % day) % hour) % minute) / second
+  ));
 
   return { days, hours, minutes, seconds };
 };
