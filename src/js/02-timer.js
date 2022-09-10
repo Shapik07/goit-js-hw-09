@@ -12,6 +12,7 @@ const refs = {
 };
 
 let selectedDate = null;
+let time = null
 
 const options = {
   enableTime: true,
@@ -29,8 +30,6 @@ flatpickr('#datetime-picker', options);
 refs.startBtn.addEventListener('click', startTimer);
 refs.startBtn.setAttribute('disabled', true);
 
-
-
 function checkValidateDate() {
   const currentDate = options.defaultDate;
 
@@ -43,10 +42,11 @@ function checkValidateDate() {
 }
 
 function startTimer() {
-  const startTime = Date.now();
-
   setInterval(() => {
-    const currentTime = Date.now();
+    let currentTime = Date.now();
+    let time = selectedDate - currentTime;
+    const finishTime = convertMs(time);
+    console.log(finishTime);
   }, 1000);
 }
 
@@ -74,4 +74,5 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
-}
+};
+
