@@ -7,10 +7,11 @@ stopBtn.addEventListener('click', stopChangeColor);
 let colorId = null;
 
 function changeColor() {
+  startBtn.setAttribute('disabled', true);
+    stopBtn.removeAttribute('disabled');
+  document.body.style.backgroundColor = getRandomHexColor();
   colorId = setInterval(() => {
     document.body.style.backgroundColor = getRandomHexColor();
-    startBtn.setAttribute('disabled', true);
-    stopBtn.removeAttribute('disabled');
   }, 1000);
 }
 
