@@ -58,7 +58,7 @@ function startTimer() {
 }
 
 function startCountdown(timeDiff) {
-  if (timeDiff < 1000) {
+  if (timeDiff < 900) {
     stopCountdown();
   }
 }
