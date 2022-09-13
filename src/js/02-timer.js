@@ -11,14 +11,11 @@ const refs = {
   seconds: document.querySelector('[data-seconds]'),
 };
 
-let selectedDate = null;
-
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  dateFormat: 'Y-m-d',
   minDate: 'today',
   onClose(selectedDates) {
     selectedDate = selectedDates[0];
@@ -27,6 +24,8 @@ const options = {
 };
 
 flatpickr('#datetime-picker', options);
+
+let selectedDate = null;
 
 refs.startBtn.addEventListener('click', startTimer);
 refs.startBtn.setAttribute('disabled', true);
@@ -45,21 +44,27 @@ function checkValidateDate() {
 }
 
 function startTimer() {
-  let currentDate = options.defaultDate;
+  intervalId = setInterval(() => {
+    let timeDiff = selectedDate - Date.now();
+    const finishTime = convertMs(timeDiff);
 
-  setInterval(() => {
-    if (currentDate > selectedDate) {
-      return;
-    }
-    let currentTime = Date.now();
-    let time = selectedDate - currentTime;
-    const finishTime = convertMs(time);
+    startCountdown(timeDiff);
 
     refs.days.textContent = finishTime.days;
     refs.hours.textContent = finishTime.hours;
     refs.minutes.textContent = finishTime.minutes;
     refs.seconds.textContent = finishTime.seconds;
   }, 1000);
+}
+
+function startCountdown(timeDiff) {
+  if (timeDiff < 1000) {
+    stopCountdown();
+  }
+}
+
+function stopCountdown() {
+  clearInterval(intervalId);
 }
 
 function addLeadingZero(value) {
