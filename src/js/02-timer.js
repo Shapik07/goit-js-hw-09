@@ -18,9 +18,11 @@ const options = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
+  dateFormat: 'Y-m-d',
+  minDate: 'today',
   onClose(selectedDates) {
     selectedDate = selectedDates[0];
-    checkValidateDate()
+    checkValidateDate();
   },
 };
 
@@ -30,7 +32,9 @@ refs.startBtn.addEventListener('click', startTimer);
 refs.startBtn.setAttribute('disabled', true);
 
 function checkValidateDate() {
-  const currentDate = options.defaultDate;
+  let currentDate = options.defaultDate;
+
+  refs.startBtn.setAttribute('disabled', true);
 
   if (currentDate > selectedDate) {
     Notify.failure('Please choose a date in the future');
@@ -42,6 +46,10 @@ function checkValidateDate() {
 
 function startTimer() {
   setInterval(() => {
+    let currentDate = options.defaultDate;
+    if (currentDate > selectedDate) {
+      return;
+    }
     let currentTime = Date.now();
     let time = selectedDate - currentTime;
     const finishTime = convertMs(time);
