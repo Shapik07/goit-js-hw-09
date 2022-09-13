@@ -45,8 +45,9 @@ function checkValidateDate() {
 }
 
 function startTimer() {
+  let currentDate = options.defaultDate;
+
   setInterval(() => {
-    let currentDate = options.defaultDate;
     if (currentDate > selectedDate) {
       return;
     }
@@ -74,10 +75,9 @@ function convertMs(ms) {
   const days = addLeadingZero(Math.floor(ms / day));
   const hours = addLeadingZero(Math.floor((ms % day) / hour));
   const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
-  const seconds = addLeadingZero(Math.floor(
-    (((ms % day) % hour) % minute) / second
-  ));
+  const seconds = addLeadingZero(
+    Math.floor((((ms % day) % hour) % minute) / second)
+  );
 
   return { days, hours, minutes, seconds };
-};
-
+}
